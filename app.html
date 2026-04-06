@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Launchpad — Build</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <a href="index.html" class="topbar-logo">Launchpad</a>
+    <div class="step-indicator">
+      <div class="step-dot active" data-step="1"><span>1</span> Style</div>
+      <div class="step-line"></div>
+      <div class="step-dot" data-step="2"><span>2</span> Prompt</div>
+      <div class="step-line"></div>
+      <div class="step-dot" data-step="3"><span>3</span> Generate</div>
+      <div class="step-line"></div>
+      <div class="step-dot" data-step="4"><span>4</span> Edit</div>
+      <div class="step-line"></div>
+      <div class="step-dot" data-step="5"><span>5</span> Publish</div>
+    </div>
+    <div class="topbar-right"></div>
+  </header>
+
+  <main class="app-main">
+
+    <!-- ============ STEP 1: Style Picker ============ -->
+    <section class="step step-1 active" data-step="1">
+      <div class="step-container">
+        <h1>Choose a style for your site</h1>
+        <p class="step-subtitle">Pick the visual direction that matches your brand. AI will use this to generate images, layouts, and color palettes.</p>
+
+        <div class="style-categories">
+          <button class="style-cat active" data-category="3d-illustration">
+            <div class="cat-preview">
+              <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3579?w=400&h=240&fit=crop&q=80" alt="3D Illustration style" style="animation-delay:0s;">
+              <div class="cat-overlay"><span class="cat-brand">Atelier</span></div>
+            </div>
+            <strong>3D Illustration</strong>
+            <span>Playful, modern, eye-catching</span>
+          </button>
+          <button class="style-cat" data-category="flat-vector">
+            <div class="cat-preview">
+              <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=240&fit=crop&q=80" alt="Flat Vector style" style="animation-delay:1.3s;">
+              <div class="cat-overlay"><span class="cat-brand">Verdant</span></div>
+            </div>
+            <strong>Flat Vector</strong>
+            <span>Clean, minimal, professional</span>
+          </button>
+          <button class="style-cat" data-category="photography">
+            <div class="cat-preview">
+              <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400&h=240&fit=crop&q=80" alt="Photography style" style="animation-delay:2.7s;">
+              <div class="cat-overlay"><span class="cat-brand">Meridian</span></div>
+            </div>
+            <strong>Photography</strong>
+            <span>Real, authentic, editorial</span>
+          </button>
+          <button class="style-cat" data-category="abstract">
+            <div class="cat-preview">
+              <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=400&h=240&fit=crop&q=80" alt="Abstract Art style" style="animation-delay:4s;">
+              <div class="cat-overlay"><span class="cat-brand">Prism</span></div>
+            </div>
+            <strong>Abstract Art</strong>
+            <span>Bold, creative, expressive</span>
+          </button>
+          <button class="style-cat" data-category="gradient-mesh">
+            <div class="cat-preview">
+              <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=400&h=240&fit=crop&q=80" alt="Gradient Mesh style" style="animation-delay:5.5s;">
+              <div class="cat-overlay"><span class="cat-brand">Flux</span></div>
+            </div>
+            <strong>Gradient Mesh</strong>
+            <span>Smooth, futuristic, SaaS</span>
+          </button>
+          <button class="style-cat" data-category="hand-drawn">
+            <div class="cat-preview">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=240&fit=crop&q=80" alt="Hand Drawn style" style="animation-delay:6.8s;">
+              <div class="cat-overlay"><span class="cat-brand">Craft</span></div>
+            </div>
+            <strong>Hand Drawn</strong>
+            <span>Warm, friendly, organic</span>
+          </button>
+        </div>
+
+        <div class="upload-ref">
+          <span class="upload-divider">or</span>
+          <button class="upload-btn" id="uploadRefBtn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Upload a reference image or paste a URL
+          </button>
+          <input type="file" id="refFileInput" accept="image/*" hidden>
+        </div>
+
+        <div class="step-actions">
+          <div></div>
+          <button class="btn-next" id="toStep2">Continue</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STEP 2: Prompt ============ -->
+    <section class="step step-2" data-step="2">
+      <div class="step-container">
+        <h1>Describe your website</h1>
+        <p class="step-subtitle">Tell us about your business, target audience, and what sections you need. The more detail, the better the result.</p>
+
+        <div class="prompt-input">
+          <textarea id="sitePrompt" placeholder="e.g. A landing page for a plant-based protein brand targeting fitness enthusiasts aged 25-40. Bold headlines, green and earth tones. Include: hero with video background, product features grid, testimonials carousel, email signup, and pricing section."></textarea>
+          <div class="prompt-suggestions">
+            <span class="prompt-label">Try an example:</span>
+            <button class="suggestion-chip" data-prompt="SaaS landing page for a project management tool. Clean, professional, blue tones. Hero, features, pricing, testimonials, FAQ.">SaaS Tool</button>
+            <button class="suggestion-chip" data-prompt="Creative agency portfolio with bold typography and fullscreen video hero. Show case studies, team section, and contact form. Dark theme with accent colors.">Agency Portfolio</button>
+            <button class="suggestion-chip" data-prompt="E-commerce landing page for artisan coffee brand. Warm earth tones, photography-heavy. Hero, product grid, origin story, reviews, and newsletter signup.">Coffee Brand</button>
+            <button class="suggestion-chip" data-prompt="Fitness app landing page targeting young professionals. Energetic, dark background with neon accents. App screenshots, features, social proof, download CTAs.">Fitness App</button>
+          </div>
+        </div>
+
+        <div class="step-actions">
+          <button class="btn-back" id="backTo1">Back</button>
+          <button class="btn-next" id="toStep3">Generate Site</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STEP 3: Generate (2 options) ============ -->
+    <section class="step step-3" data-step="3">
+      <div class="step-container step-container-wide">
+        <h1>Pick your favorite</h1>
+        <p class="step-subtitle">AI generated 2 variations. Click one to select it.</p>
+
+        <div class="options-grid">
+          <div class="option-card" data-option="A">
+            <div class="option-badge">Option A</div>
+            <div class="option-preview" id="previewA"></div>
+          </div>
+          <div class="option-card" data-option="B">
+            <div class="option-badge">Option B</div>
+            <div class="option-preview" id="previewB"></div>
+          </div>
+        </div>
+
+        <div class="step-actions">
+          <button class="btn-back" id="backTo2">Back</button>
+          <button class="btn-next" id="toStep4" disabled>Select & Continue</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STEP 4: Edit ============ -->
+    <section class="step step-4" data-step="4">
+      <div class="editor-layout">
+        <div class="editor-preview">
+          <div class="editor-preview-bar">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            <span class="preview-url">yoursite.launchpad.site</span>
+          </div>
+          <div class="editor-preview-content" id="editorPreview">
+            <!-- Editable site preview renders here -->
+          </div>
+        </div>
+        <div class="editor-sidebar">
+          <div class="sidebar-tabs">
+            <button class="sidebar-tab active" data-tab="chat">Chat</button>
+            <button class="sidebar-tab" data-tab="sections">Sections</button>
+          </div>
+          <div class="sidebar-panel chat-panel active" data-panel="chat">
+            <div class="chat-messages" id="chatMessages">
+              <div class="chat-msg ai">What would you like to change? You can ask me anything — adjust colors, rewrite copy, add sections, or change the layout.</div>
+            </div>
+            <div class="chat-input-wrap">
+              <textarea id="chatInput" placeholder="e.g. Make the hero headline bolder and add a testimonials section" rows="2"></textarea>
+              <button class="chat-send" id="chatSend">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="sidebar-panel sections-panel" data-panel="sections">
+            <div class="section-list" id="sectionList">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+          <div class="step-actions sidebar-actions">
+            <button class="btn-back" id="backTo3">Back</button>
+            <button class="btn-next" id="toStep5">Publish</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STEP 5: Publish ============ -->
+    <section class="step step-5" data-step="5">
+      <div class="step-container">
+        <div class="publish-success">
+          <div class="publish-icon">&#127881;</div>
+          <h1>Your site is ready!</h1>
+          <p class="step-subtitle">Your animated marketing website has been generated. Choose how you'd like to use it.</p>
+        </div>
+
+        <div class="publish-options">
+          <div class="publish-card">
+            <div class="publish-card-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+            </div>
+            <h3>Get Live URL</h3>
+            <p>Publish to a free launchpad.site subdomain instantly.</p>
+            <div class="publish-url-box">
+              <input type="text" value="yoursite.launchpad.site" id="publishUrl" readonly>
+              <button class="copy-btn" id="copyUrl">Copy</button>
+            </div>
+            <button class="btn-primary publish-btn" id="publishLive">Publish Live</button>
+          </div>
+          <div class="publish-card">
+            <div class="publish-card-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </div>
+            <h3>Download Code</h3>
+            <p>Get the full HTML, CSS, and JS to host anywhere.</p>
+            <button class="btn-secondary publish-btn" id="downloadCode">Download .zip</button>
+          </div>
+        </div>
+
+        <div class="publish-preview">
+          <div class="browser-mockup-sm">
+            <div class="bm-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+            <div class="bm-content" id="publishPreviewContent"></div>
+          </div>
+        </div>
+
+        <div class="step-actions">
+          <button class="btn-back" id="backTo4">Back to Editor</button>
+          <button class="btn-next" id="startOver">Build Another Site</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Loading overlay for generation -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <h2>Building your website</h2>
+      <p class="loading-status" id="loadingStatus">Analyzing your style preferences...</p>
+      <div class="loading-bar"><div class="loading-fill" id="loadingFill"></div></div>
+    </div>
+  </div>
+
+  <script src="builder.js"></script>
+</body>
+</html>
